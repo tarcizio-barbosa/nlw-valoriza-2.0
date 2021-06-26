@@ -22,4 +22,6 @@ app.use(
   },
 );
 
+// console.log(typeof process.env.SECRET_KEY);
+
 app.listen(3000, () => console.log('Server is running on port 3000.'));

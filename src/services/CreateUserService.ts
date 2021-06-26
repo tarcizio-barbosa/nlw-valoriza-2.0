@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { prisma } from './clientService';
+import { prisma } from './ClientService';
 import { PasswordService } from './PasswordService';
 
 const userPersonalData = Prisma.validator<Prisma.UserArgs>()({
