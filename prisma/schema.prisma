@@ -21,7 +21,7 @@ model User {
 
 model Tag {
   id           String   @id @default(uuid())
-  tagName      String   @db.VarChar
+  tagName      String   @unique @db.VarChar
   tagCreatedAt DateTime @default(now())
   tagUpdatedAt DateTime @updatedAt
 }
