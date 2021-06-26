@@ -9,6 +9,22 @@ type UserPersonalData = Prisma.UserGetPayload<typeof userPersonalData>;
 
 class CreateUserService {
   async execute({ userName, userEmail, userPassword }: UserPersonalData) {
+    if (!userEmail) {
+      throw new Error('Please insert a valid e-mail.');
+    }
+
+    const userAlreadyExists = await prisma.user.findUnique({
+      where: {
+        userEmail,
+      },
+    });
+
+    if (userAlreadyExists) {
+      throw new Error(
+        'There is a unique constraint violation. A new User cannot be created with the same name.',
+      );
+    }
+
     const user = await prisma.user.create({
       data: {
         userName,
