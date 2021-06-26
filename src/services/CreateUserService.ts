@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from './clientService';
+import { PasswordService } from './PasswordService';
 
 const userPersonalData = Prisma.validator<Prisma.UserArgs>()({
   select: { userName: true, userEmail: true, userPassword: true },
@@ -25,11 +26,14 @@ class CreateUserService {
       );
     }
 
+    const passwordService = new PasswordService();
+    const encryptedPassword = passwordService.hashPassword(userPassword);
+
     const user = await prisma.user.create({
       data: {
         userName,
         userEmail,
-        userPassword,
+        userPassword: encryptedPassword,
       },
     });
 
